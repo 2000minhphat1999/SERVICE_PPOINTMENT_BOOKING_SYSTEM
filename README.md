@@ -1,5 +1,5 @@
 # Service Appointment Booking System (Flask)
-
+![image](https://github.com/2000minhphat1999/SERVICE_PPOINTMENT_BOOKING_SYSTEM/blob/main/project.png)
 Minimal Flask-based booking system scaffold implementing:
 
 1. User management (register/login, roles: admin/staff/customer, profiles)
@@ -27,4 +27,4 @@ Default config uses SQLite and console email backend.
 
 Notes: This is a scaffold. Implement additional validations and security for production use.
 
-![image](https://github.com/2000minhphat1999/SERVICE_PPOINTMENT_BOOKING_SYSTEM/blob/main/project.png)
+
