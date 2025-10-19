@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>{% if current_user.role == 'admin' %}All Bookings{% else %}My Bookings{% endif %}</h2>
+        </div>
+        <div class="col-auto">
+            <a href="{{ url_for('services.list_services') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Book New Service
+            </a>
+        </div>
+    </div>
+
+    {% if bookings %}
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Service</th>
+                        {% if current_user.role in ['admin', 'staff'] %}
+                        <th>Customer</th>
+                        {% endif %}
+                        <th>Staff</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>
+                            <div>{{ booking.start_time.strftime('%Y-%m-%d') }}</div>
+                            <small class="text-muted">{{ booking.start_time.strftime('%H:%M') }} - {{ booking.end_time.strftime('%H:%M') }}</small>
+                        </td>
+                        <td>
+                            <div>{{ booking.service.name }}</div>
+                            <small class="text-muted">${{ "%.2f"|format(booking.service.price) }}</small>
+                        </td>
+                        {% if current_user.role in ['admin', 'staff'] %}
+                        <td>
+                            <div>{{ booking.customer.name or booking.customer.email }}</div>
+                            <small class="text-muted">{{ booking.customer.phone or 'No phone' }}</small>
+                        </td>
+                        {% endif %}
+                        <td>
+                            {% if booking.staff %}
+                            {{ booking.staff.name }}
+                            {% else %}
+                            <span class="text-muted">Not assigned</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if booking.status == 'booked' %}
+                            <span class="badge bg-success">Booked</span>
+                            {% elif booking.status == 'cancelled' %}
+                            <span class="badge bg-danger">Cancelled</span>
+                            {% elif booking.status == 'completed' %}
+                            <span class="badge bg-info">Completed</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if booking.status == 'booked' and (current_user.role == 'admin' or booking.user_id == current_user.id) %}
+                            <form method="POST" action="{{ url_for('bookings.cancel_booking', booking_id=booking.id) }}" 
+                                  style="display: inline;"
+                                  onsubmit="return confirm('Are you sure you want to cancel this booking?')">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+        <h4>No bookings found</h4>
+        <p class="text-muted">You haven't made any bookings yet.</p>
+        <a href="{{ url_for('services.list_services') }}" class="btn btn-primary mt-3">
+            Browse Services
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

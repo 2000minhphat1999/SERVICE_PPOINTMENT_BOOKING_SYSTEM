@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Profile</h2>
+<form method="post">
+  Name: <input name="name" value="{{ current_user.name }}"><br>
+  Phone: <input name="phone" value="{{ current_user.phone }}"><br>
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

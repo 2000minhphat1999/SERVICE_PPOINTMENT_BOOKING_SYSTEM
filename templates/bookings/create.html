@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Book: {{ service.name }}</h2>
+<form method="post">
+  Start time (ISO, e.g. 2025-10-20T14:00): <input name="start_time" required><br>
+  Staff: <select name="staff_id">
+    <option value="">Any</option>
+    {% for s in staff %}
+      <option value="{{ s.id }}">{{ s.name or s.email }}</option>
+    {% endfor %}
+  </select><br>
+  <button type="submit">Book</button>
+</form>
+{% endblock %}

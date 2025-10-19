@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Create Service</h2>
+<form method="post">
+  Name: <input name="name" required><br>
+  Price: <input name="price" required><br>
+  Duration (minutes): <input name="duration" required><br>
+  Category: <select name="category_id">
+    <option value="">None</option>
+    {% for c in categories %}
+      <option value="{{ c.id }}">{{ c.name }}</option>
+    {% endfor %}
+  </select><br>
+  Description:<br>
+  <textarea name="description"></textarea><br>
+  <button type="submit">Create</button>
+</form>
+{% endblock %}
