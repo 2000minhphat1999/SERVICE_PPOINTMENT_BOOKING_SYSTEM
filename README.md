@@ -1,4 +1,4 @@
-# Service Appointment Booking System (Flask)
+# Service Appointment Booking System 
 ![image](https://github.com/2000minhphat1999/SERVICE_PPOINTMENT_BOOKING_SYSTEM/blob/main/project.png)
 Minimal Flask-based booking system scaffold implementing:
 
