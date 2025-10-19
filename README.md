@@ -26,3 +26,5 @@ $env:FLASK_APP='app:create_app' ; flask run
 Default config uses SQLite and console email backend.
 
 Notes: This is a scaffold. Implement additional validations and security for production use.
+
+![image](https://github.com/2000minhphat1999/SERVICE_PPOINTMENT_BOOKING_SYSTEM/blob/main/project.png)
